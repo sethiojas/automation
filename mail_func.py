@@ -25,7 +25,7 @@ class Mail():
 		email_alert = functions.set_alert_msg(status_code)
 
 		#task deatils
-		task_info = '\nTask Details\n' + command + text_msg
+		task_info = '\nTask Details\n' + self.command + '\n' +self.text_msg
 
 		#message to be sent via email
 		send_msg = email_alert + task_info

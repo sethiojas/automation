@@ -1,6 +1,7 @@
 import subprocess
 import webbrowser
 from time import sleep
+import yoda
 
 
 def set_alert_msg(status_code):
@@ -14,6 +15,9 @@ def set_alert_msg(status_code):
 	
 	# Authentication 		2
 	# failure
+
+	#Command not in 	   	
+	#list
 
 	alert_msg = 'Subject: TASK STATUS\n'
 
@@ -29,11 +33,14 @@ def set_alert_msg(status_code):
 	elif status_code == 2:
 		alert_msg += 'COMMAND CAN NOT BE EXECUTED: AUTHENTICATION FAILURE'
 
+	else:
+		alert_msg = yoda.say_quote()
+
 	return alert_msg
 
 
 
-def execute_task(command, args):
+def execute_task(command, args, mail=None):
 	''' Execute the task received in email '''
 
 	#if command is browser then fetch link and open it in default browser
@@ -56,6 +63,11 @@ def execute_task(command, args):
 		command_line_args = ' '.join(args[1:])
 		task = subprocess.Popen([args[0], command_line_args])
 		task.wait()
+
+	else:
+		if mail != None:
+			status_code = -1
+			mail.sendmail(status_code)
 
 if __name__ == '__main__':
 	main()

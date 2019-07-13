@@ -32,39 +32,26 @@ def set_alert_msg(status_code):
 
 
 
-def execute_task(command, soup):
+def execute_task(command, args):
 	''' Execute the task received in email '''
 
 	#if command is browser then fetch link and open it in default browser
 	if command.lower() == 'browser':
-		link_temp = soup.findAll('div',dir='auto')[1] #in second div tag (first div tag is white spaces)
-		link = link_temp.find('a')['href'] # href value of anchor tag inside second div tag
+		#assuming all arguments are links if subject is browser
+		#open all links
+		for link in args:
+			webbrowser.open(link)
+			sleep(2)
 		
-		webbrowser.open(link)
-		sleep(2)
-		
-	# ['\r\n',----------------------------------------------------------------------redundant
-	#	'\n\nDips and nachos\nPasta sauce\nSpaghetti\nLasagna\nNoodles\n\n', -------redundant
-	#  '\nDips and nachos\nPasta sauce\nSpaghetti\nLasagna\nNoodles\n', ------------redundant
-	#  'Dips and nachos',
-	#  'Pasta sauce',
-	#  'Spaghetti',
-	#  'Lasagna',
-	#  'Noodles']
-
 	#if command matches open then open the given executable
 	elif command.lower() == 'open':
-		args = [member.get_text() for member in soup.findAll('div', dir='auto') if member.get_text() 
-		not in ('\n','\r','\r\n') and not member.get_text().startswith('\n')]
 		
 		task = subprocess.Popen(args[0])
 		task.wait()
 
 	#if command matches exe then run executable with command line args
 	elif command.lower() == 'exe':
-		args = [member.get_text() for member in soup.findAll('div', dir='auto') if member.get_text() 
-		not in ('\n','\r','\r\n') and not member.get_text().startswith('\n')]
-		
+
 		command_line_args = ' '.join(args[1:])
 		task = subprocess.Popen([args[0], command_line_args])
 		task.wait()

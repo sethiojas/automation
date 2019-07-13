@@ -63,12 +63,12 @@ class Mail():
 				command = msg.get_subject() #if true then command equals subject of email
 			
 				#get html form of mssg body
-				html_msg = msg.html_part.get_payload().decode()
+				text_msg = msg.text_part.get_payload().decode()
 		 	
 		 		
 		 	#delete the read email
-			# email_read.delete_messages(uid[0])
-			# email_read.expunge()
+			email_read.delete_messages(uid[0])
+			email_read.expunge()
 
 		#If no mail is found by the name of sender (uid does not exists)
 		else:
@@ -82,7 +82,7 @@ class Mail():
 		#Otherwise return False
 		if command:
 			return {'command': command,
-					'html_msg': html_msg}
+					'text_msg': text_msg}
 		return False
 
 if __name__ == '__main__':

@@ -1,14 +1,11 @@
 #---------------------------USAGE----------------------------------------------------------
 #VALID SUBJECTS :
-#('Browser, browser, BROWSER')
-#('open', 'Open', 'OPEN')
-#('exe', 'Exe', 'EXE')
-
+#browser , open , exe
+#<subjects are case insensitive>
 
 #subject: (One of the given valid entires)
-#body
-#---------leave first line of body -------------------
-#link|path/to/executable
+#<body>
+#link or path/to/executable
 #command --
 #line     |
 #args     |-------> only if subject is exe
@@ -16,10 +13,7 @@
 #script----
 
 #---------------------------------------------------------------------------------------------
-
-
 from time import sleep
-from bs4 import BeautifulSoup
 from os import system
 from mail_func import Mail
 import functions
@@ -55,18 +49,20 @@ try:
 		if task_msg != False:
 
 			command = task_msg['command']
-			html_msg = task_msg['html_msg']
+			text_msg = task_msg['text_msg']
+
+			#list of arguments
+			#remove space characters from left and right of string
+			#then split on space characters in between
+			ars = text_msg.strip().split()
 
 			status_code = 0
 
 			print("Task Status : START")
 			mail.send_mail(status_code)
 
-			#parse html form of mssg body
-			soup = BeautifulSoup(html_msg, 'html.parser')
-
 			#Execute task
-			functions.execute_task(command, soup)
+			functions.execute_task(command, args)
 
 			status_code = 1
 			print("Task Status : ENDED")

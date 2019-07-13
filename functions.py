@@ -1,5 +1,6 @@
 import subprocess
 import webbrowser
+from time import sleep
 
 
 def set_alert_msg(status_code):

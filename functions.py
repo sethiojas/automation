@@ -52,7 +52,7 @@ def execute_task(command, args, mail=None):
 			webbrowser.open(link)
 			sleep(2)
 
-	#if command matches exe then run executable with command line args
+	#if command matches exe then run executable (optional : command line args)
 	elif command.lower() == 'exe':
 		open_exe(args)
 

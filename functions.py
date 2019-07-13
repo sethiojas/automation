@@ -62,7 +62,9 @@ def execute_task(command, args, mail=None):
 			mail.sendmail(status_code)
 
 
-def wrapper(open_exe):
+#helps to implement the optional command line arguments functionality
+#of open_exe() function
+def wrapper_to_open_exe(open_exe):
 	@wraps(open_exe)
 	def inner(args):
 		if len(args) > 1:
@@ -74,7 +76,7 @@ def wrapper(open_exe):
 
 	return inner
 
-@wrapper
+@wrapper_to_open_exe
 def open_exe(args, command_line_args = None):
 	''' open executables (Optional : command line arguments) '''
 	if command_line_args:

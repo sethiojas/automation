@@ -57,14 +57,15 @@ try:
 			#then split on space characters in between
 			args = text_msg.strip().split()
 
+			#send email alert that task has started
 			status_code = 0
-
 			print("Task Status : START")
 			mail.send_mail(status_code)
 
 			#Execute task
 			functions.execute_task(command, args, mail)
 
+			#send email alert that task has ended
 			status_code = 1
 			print("Task Status : ENDED")
 			mail.send_mail(status_code)

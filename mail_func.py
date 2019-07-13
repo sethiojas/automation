@@ -51,8 +51,11 @@ class Mail():
 		#login to bot email
 		email_read = imapclient.IMAPClient('imap.gmail.com', ssl=True)
 		email_read.login(self.bot_id, self.bot_passwd)
+		
+		#readonly is false because we want to be able
+		#to delete emails which are read once
 		email_read.select_folder('INBOX', readonly = False)
-
+		
 		#search email by allowed sender name
 		uid = email_read.gmail_search(self.sender_name)
 		
@@ -60,6 +63,7 @@ class Mail():
 			print('Mail found')
 			
 			#get mail body
+			#returns body in an encoded format
 			raw = email_read.fetch(uid,'BODY[]')
 			msg = pyzmail.PyzMessage.factory(raw[uid[0]][b'BODY[]'])
 
@@ -70,7 +74,7 @@ class Mail():
 				
 				command = msg.get_subject() #if true then command equals subject of email
 			
-				#get html form of mssg body
+				#get text form of mssg body
 				text_msg = msg.text_part.get_payload().decode()
 		 	
 		 		

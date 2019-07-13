@@ -1,6 +1,7 @@
 import subprocess
 import webbrowser
 from time import sleep
+from functools import wraps
 import yoda
 
 
@@ -50,24 +51,38 @@ def execute_task(command, args, mail=None):
 		for link in args:
 			webbrowser.open(link)
 			sleep(2)
-		
-	#if command matches open then open the given executable
-	elif command.lower() == 'open':
-		
-		task = subprocess.Popen(args[0])
-		task.wait()
 
 	#if command matches exe then run executable with command line args
 	elif command.lower() == 'exe':
-
-		command_line_args = ' '.join(args[1:])
-		task = subprocess.Popen([args[0], command_line_args])
-		task.wait()
+		open_exe(args)
 
 	else:
 		if mail != None:
 			status_code = -1
 			mail.sendmail(status_code)
+
+
+def wrapper(open_exe):
+	@wraps(open_exe)
+	def inner(args):
+		if len(args) > 1:
+			command_line_args = ' '.join(args[1:])
+		else:
+			command_line_args = None
+
+		open_exe(args, command_line_args)
+
+	return inner
+
+@wrapper
+def open_exe(args, command_line_args = None):
+	''' open executables (Optional : command line arguments) '''
+	if command_line_args:
+		task = subprocess.Popen([args[0], command_line_args])
+		task.wait()
+	else:
+		task = subprocess.Popen(args[0])
+		task.wait()
 
 if __name__ == '__main__':
 	main()

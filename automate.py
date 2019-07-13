@@ -1,6 +1,7 @@
 #---------------------------USAGE----------------------------------------------------------
 #VALID SUBJECTS :
-#browser , open , exe
+#1)browser 
+#2)exe
 #<subjects are case insensitive>
 
 #subject: (One of the given valid entires)

@@ -62,7 +62,7 @@ try:
 			mail.send_mail(status_code)
 
 			#Execute task
-			functions.execute_task(command, args)
+			functions.execute_task(command, args, mail)
 
 			status_code = 1
 			print("Task Status : ENDED")

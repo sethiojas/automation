@@ -13,6 +13,8 @@ class Mail():
 		self.receiver_id = receiver_id
 		self.allowed_email = allowed_email
 		self.sender_name = sender_name
+		self.command = None
+		self.text_msg = None
 
 
 	def send_mail(self, status_code):
@@ -21,6 +23,12 @@ class Mail():
 		#Determine the appropriate message to send via email
 		#depending upon task status
 		email_alert = functions.set_alert_msg(status_code)
+
+		#task deatils
+		task_info = '\nTask Details\n' + command + text_msg
+
+		#message to be sent via email
+		send_msg = email_alert + task_info
 		
 		#login into bot account
 		mail = smtplib.SMTP('smtp.gmail.com', 587)
@@ -31,7 +39,7 @@ class Mail():
 		
 		#send email
 		mail.sendmail(self.bot_id, self.receiver_id,
-				email_alert)
+				send_msg)
 		
 		#logout from bot id
 		mail.quit()
@@ -77,10 +85,12 @@ class Mail():
 		#logout from email
 		email_read.logout()
 
-		#If command is not None then return the command
-		#and html_msg.
-		#Otherwise return False
+		#If command is not None then save command and text_msg, 
+		#also return both of them.
+		#Otherwise just return false
 		if command:
+			self.command = command
+			self.text_msg = text_msg
 			return {'command': command,
 					'text_msg': text_msg}
 		return False

@@ -66,21 +66,31 @@ def execute_task(command, args, mail=None):
 
 	#if command matches exe then run executable (optional : command line args)
 	elif command.lower() == 'exe':
-		if os.path.exists(args[0]):
-			if os.access(args[0], os.X_OK):
-				open_exe(args)
-			else:
-				print('PERMISSION ERROR : Path can not be executed')
-				status_code = 4
-				mail.sendmail(status_code)
-		else:
-			print('INCORRECT PATH : Path not found')
-			status_code = 3
-			mail.sendmail(status_code)
+		exe_command(mail)
 
 	else:
 		if mail != None:
 			status_code = -1
+			mail.sendmail(status_code)
+
+def exe_command(mail):
+	''' Executes when command is 'exe' '''
+
+	#check if path to executable exists
+	if os.path.exists(args[0]):
+		#if path exists
+		#check if user has permission to execute that file
+		if os.access(args[0], os.X_OK):
+			open_exe(args)
+		
+		else:
+			print('PERMISSION ERROR : Path can not be executed')
+			status_code = 4
+			mail.sendmail(status_code)
+	
+	else:
+			print('INCORRECT PATH : Path not found')
+			status_code = 3
 			mail.sendmail(status_code)
 
 

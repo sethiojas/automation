@@ -3,12 +3,16 @@ import webbrowser
 from time import sleep
 from functools import wraps
 import yoda
+import os
 
 
 def set_alert_msg(status_code):
 	''' determine which message to send as email alert based on the status code '''
 
 	# Task status 		code (int)
+	
+	#Command not in 	   -1  	
+	#list
 	
 	# Started 				0
 	
@@ -17,8 +21,10 @@ def set_alert_msg(status_code):
 	# Authentication 		2
 	# failure
 
-	#Command not in 	   	
-	#list
+	#INCORRECT PATH 		3
+
+	#PERMISSION ERROR		4
+
 
 	alert_msg = 'Subject: TASK STATUS\n'
 
@@ -33,6 +39,12 @@ def set_alert_msg(status_code):
 	#if email is not from allowed email address
 	elif status_code == 2:
 		alert_msg += 'COMMAND CAN NOT BE EXECUTED: AUTHENTICATION FAILURE'
+
+	elif status_code == 3:
+		alert_msg += 'INCORRECT PATH : Path not found'
+
+	elif status_code == 4:
+		alert_msg += 'PERMISSION ERROR : Path can not be executed'
 
 	else:
 		alert_msg = yoda.say_quote()
@@ -54,7 +66,17 @@ def execute_task(command, args, mail=None):
 
 	#if command matches exe then run executable (optional : command line args)
 	elif command.lower() == 'exe':
-		open_exe(args)
+		if os.path.exists(args[0]):
+			if os.access(args[0], os.X_OK):
+				open_exe(args)
+			else:
+				print('PERMISSION ERROR : Path can not be executed')
+				status_code = 4
+				mail.sendmail(status_code)
+		else:
+			print('INCORRECT PATH : Path not found')
+			status_code = 3
+			mail.sendmail(status_code)
 
 	else:
 		if mail != None:

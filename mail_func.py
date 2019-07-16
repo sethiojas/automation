@@ -26,7 +26,7 @@ class Mail():
 		email_alert = functions.set_alert_msg(status_code)
 
 		#task deatils
-		task_info = '\nTask Details\n' + self.command + '\n' +self.text_msg
+		task_info = '\r\nTask Details\r\n' + self.command + '\r\n' +self.text_msg
 
 		#message to be sent via email
 		send_msg = email_alert + task_info
@@ -59,6 +59,8 @@ class Mail():
 		
 		#search email by allowed sender name
 		uid = email_read.gmail_search(self.sender_name)
+
+		command = None
 		
 		if uid: #if mail found
 			print('Mail found')
@@ -68,15 +70,18 @@ class Mail():
 			raw = email_read.fetch(uid,'BODY[]')
 			msg = pyzmail.PyzMessage.factory(raw[uid[0]][b'BODY[]'])
 
-			command = None
-
 			#check if email address matches the allowed email
+			#if not then set command equal to auth_fail and
+			#text_msg = None
 			if msg.get_addresses('from')[0][1] == self.allowed_email:
 				
 				command = msg.get_subject() #if true then command equals subject of email
 			
 				#get text form of mssg body
 				text_msg = msg.text_part.get_payload().decode()
+			else:
+				command = 'auth_fail'
+				text_msg = None
 		 	
 		 		
 		 	#delete the read email
@@ -92,7 +97,8 @@ class Mail():
 
 		#If command is not None then save command and text_msg, 
 		#also return both of them.
-		#Otherwise just return false
+		#Otherwise return false to indicate that No email was found
+		#as a result of search
 		if command:
 			self.command = command
 			self.text_msg = text_msg

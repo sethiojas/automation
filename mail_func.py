@@ -3,6 +3,7 @@ import smtplib
 import imapclient
 import pyzmail
 from time import sleep
+from email.message import EmailMessage
 
 class Mail():
 
@@ -16,6 +17,12 @@ class Mail():
 		self.command = None
 		self.text_msg = None
 		self.sent_mail = 0 #to track if any mail is sent by function other than the Task Started alert
+		
+		#set from, to and subject msgibutes of email
+		self.email_msg = EmailMessage()
+		self.email_msg['from'] = self.bot_id
+		self.email_msg['to'] = self.receiver_id
+		self.email_msg['subject'] = 'Task Status'
 
 
 	def send_mail(self, status_code):
@@ -26,10 +33,13 @@ class Mail():
 		email_alert = functions.set_alert_msg(status_code)
 
 		#task deatils
-		task_info = '\r\nTask Details\r\n' + self.command + '\r\n' +self.text_msg
+		task_info = '\nTask Details\n' + self.command + '\n' +self.text_msg
 
 		#message to be sent via email
 		send_msg = email_alert + task_info
+
+		#set body of email mssg
+		self.email_msg.set_content(send_msg)
 		
 		#login into bot account
 		mail = smtplib.SMTP('smtp.gmail.com', 587)
@@ -37,11 +47,9 @@ class Mail():
 		mail.starttls()
 		mail.login(self.bot_id, self.bot_passwd)
 
-		
-		#send email
-		mail.sendmail(self.bot_id, self.receiver_id,
-				send_msg)
-		
+		#send mail
+		mail.send_message(self.email_msg)
+
 		#logout from bot id
 		mail.quit()
 

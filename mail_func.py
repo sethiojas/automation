@@ -15,6 +15,7 @@ class Mail():
 		self.sender_name = sender_name
 		self.command = None
 		self.text_msg = None
+		self.sent_mail = 0 #to track if any mail is sent by function other than the Task Started alert
 
 
 	def send_mail(self, status_code):

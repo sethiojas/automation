@@ -26,7 +26,7 @@ def set_alert_msg(status_code):
 	#PERMISSION ERROR		4
 
 
-	alert_msg = 'Subject: TASK STATUS\n'
+	alert_msg = 'Subject: TASK STATUS\r\n'
 
 	#task started email
 	if status_code == 0:
@@ -42,7 +42,7 @@ def set_alert_msg(status_code):
 
 	#Path does not exists
 	elif status_code == 3:
-		alert_msg += 'Incorrect path'
+		alert_msg += 'INCORRECT PATH > Path does not exists.'
 
 	#user does not has execute access
 	elif status_code == 4:

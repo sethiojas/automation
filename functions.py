@@ -40,9 +40,11 @@ def set_alert_msg(status_code):
 	elif status_code == 2:
 		alert_msg += 'COMMAND CAN NOT BE EXECUTED: AUTHENTICATION FAILURE'
 
+	#Path does not exists
 	elif status_code == 3:
-		alert_msg += 'INCORRECT PATH : Path not found'
+		alert_msg += 'Incorrect path'
 
+	#user does not has execute access
 	elif status_code == 4:
 		alert_msg += 'PERMISSION ERROR : Path can not be executed'
 
@@ -72,7 +74,7 @@ def execute_task(command, args, mail=None):
 		if mail != None:
 			mail.sent_mail = 1
 			status_code = -1
-			mail.sendmail(status_code)
+			mail.send_mail(status_code)
 
 
 def exe_command(args, mail):
@@ -89,13 +91,13 @@ def exe_command(args, mail):
 			print('PERMISSION ERROR : Path can not be executed')
 			mail.sent_mail = 1
 			status_code = 4
-			mail.sendmail(status_code)
+			mail.send_mail(status_code)
 	
 	else:
 		print('INCORRECT PATH : Path not found')
 		mail.sent_mail = 1
 		status_code = 3
-		mail.sendmail(status_code)
+		mail.send_mail(status_code)
 
 
 #helps to implement the optional command line arguments functionality

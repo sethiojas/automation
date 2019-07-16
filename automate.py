@@ -47,36 +47,43 @@ try:
 
 		task_msg = mail.read_mail()
 
+		#if task_msg is false that means no mail was found
+		#if task-mgs is not false then either mail was found and authentication
+		#was successful or that mail was found but authentication
+		#failed
 		if task_msg != False:
 
 			command = task_msg['command']
 			text_msg = task_msg['text_msg']
 
-			#list of arguments
-			#remove space characters from left and right of string
-			#then split on space characters in between
-			args = text_msg.strip().split()
-
-			#send email alert that task has started
-			status_code = 0
-			print("Task Status : START")
-			mail.send_mail(status_code)
-
-			#Execute task
-			functions.execute_task(command, args, mail)
-
-			#check if a mail other than Task Started alert has been sent
-			if mail.sent_mail == 0:
-				#send email alert that task has ended
-				status_code = 1
-				print("Task Status : ENDED")
+			#to check if authentication failed for found mail
+			if command == 'auth_fail' and text_msg == None:
+				
+				print("Authentication Failure")
+				status_code = 2
 				mail.send_mail(status_code)
 			else:
-				mail.sent_mail = 0 #set sent_mail to 0 again for other tasks
-		else:
-			print("Authentication Failure")
-			status_code = 2
-			mail.send_mail(status_code)
+				#list of arguments
+				#remove space characters from left and right of string
+				#then split on space characters in between
+				args = text_msg.strip().split()
+
+				#send email alert that task has started
+				status_code = 0
+				print("Task Status : START")
+				mail.send_mail(status_code)
+
+				#Execute task
+				functions.execute_task(command, args, mail)
+
+				#check if a mail other than Task Started alert has been sent
+				if mail.sent_mail == 0:
+					#send email alert that task has ended
+					status_code = 1
+					print("Task Status : ENDED")
+					mail.send_mail(status_code)
+				else:
+					mail.sent_mail = 0 #set sent_mail to 0 again for other tasks
 
 		sleep(5)
 		system('clear')

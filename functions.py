@@ -70,8 +70,10 @@ def execute_task(command, args, mail=None):
 
 	else:
 		if mail != None:
+			mail.sent_mail = 1
 			status_code = -1
 			mail.sendmail(status_code)
+
 
 def exe_command(args, mail):
 	''' Executes when command is 'exe' '''
@@ -85,11 +87,13 @@ def exe_command(args, mail):
 		
 		else:
 			print('PERMISSION ERROR : Path can not be executed')
+			mail.sent_mail = 1
 			status_code = 4
 			mail.sendmail(status_code)
 	
 	else:
 		print('INCORRECT PATH : Path not found')
+		mail.sent_mail = 1
 		status_code = 3
 		mail.sendmail(status_code)
 

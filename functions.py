@@ -66,14 +66,14 @@ def execute_task(command, args, mail=None):
 
 	#if command matches exe then run executable (optional : command line args)
 	elif command.lower() == 'exe':
-		exe_command(mail)
+		exe_command(args, mail)
 
 	else:
 		if mail != None:
 			status_code = -1
 			mail.sendmail(status_code)
 
-def exe_command(mail):
+def exe_command(args, mail):
 	''' Executes when command is 'exe' '''
 
 	#check if path to executable exists
@@ -89,9 +89,9 @@ def exe_command(mail):
 			mail.sendmail(status_code)
 	
 	else:
-			print('INCORRECT PATH : Path not found')
-			status_code = 3
-			mail.sendmail(status_code)
+		print('INCORRECT PATH : Path not found')
+		status_code = 3
+		mail.sendmail(status_code)
 
 
 #helps to implement the optional command line arguments functionality

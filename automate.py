@@ -65,11 +65,14 @@ try:
 			#Execute task
 			functions.execute_task(command, args, mail)
 
-			#send email alert that task has ended
-			status_code = 1
-			print("Task Status : ENDED")
-			mail.send_mail(status_code)
-
+			#check if a mail other than Task Started alert has been sent
+			if mail.sent_mail == 0:
+				#send email alert that task has ended
+				status_code = 1
+				print("Task Status : ENDED")
+				mail.send_mail(status_code)
+			else:
+				mail.sent_mail = 0 #set sent_mail to 0 again for other tasks
 		else:
 			print("Authentication Failure")
 			status_code = 2

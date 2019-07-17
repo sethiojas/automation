@@ -25,15 +25,15 @@ import functions
 #bot id and password
 #gmail id required
 #if any other id is to be used then change the search function of IMAP
-bot_id = 'bruhbotman@gmail.com'
-bot_passwd = '1q2w3e!@'
+bot_id = ''
+bot_passwd = ''
 
 #Mail id to receive email alerts on
-receiver_id = 'ojas.sethi@outlook.com'
+receiver_id = ''
 
 #instructions sent from only this email will be executed
-allowed_email = 'ojas.sethi@outlook.com'
-sender_name = 'Ojas' #Name of account Holder of the above give allowed_id
+allowed_email = ''
+sender_name = '' #Name of account Holder of the above give allowed_id
 
 mail = Mail(bot_id, bot_passwd, receiver_id, allowed_email, sender_name)
 

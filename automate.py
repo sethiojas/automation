@@ -7,11 +7,12 @@
 #subject: (One of the given valid entires)
 #<body>
 #link or path/to/executable
-#command --
-#line     |
-#args     |-------> only if subject is exe
-#for	  |
-#script----
+#command ----
+#line       |
+#args       |-------> if subject is exe
+#(optiional)|
+#for	    |
+#script------
 
 #---------------------------------------------------------------------------------------------
 from time import sleep
@@ -48,24 +49,19 @@ try:
 		task_msg = mail.read_mail()
 
 		#if task_msg is false that means no mail was found
-		#if task-mgs is not false then either mail was found and authentication
-		#was successful or that mail was found but authentication
-		#failed
+		#if task_mgs is 'fail' = mail authentication failed
 		if task_msg != False:
 
-			command = task_msg['command']
-			text_msg = task_msg['text_msg']
-
-			#to check if authentication failed for found mail
-			if command == 'auth_fail' and text_msg == None:
-				
+			if task_msg == 'fail':
 				print("Authentication Failure")
 				status_code = 2
 				mail.send_mail(status_code)
+			
 			else:
-				#list of arguments
-				#remove space characters from left and right of string
-				#then split on space characters in between
+				
+				command = task_msg['command']
+				text_msg = task_msg['text_msg']
+				
 				args = text_msg.strip().split()
 
 				#send email alert that task has started
@@ -84,6 +80,8 @@ try:
 					mail.send_mail(status_code)
 				else:
 					mail.sent_mail = 0 #set sent_mail to 0 again for other tasks
+		else:
+			print('No Mail Found')
 
 		sleep(5)
 		system('clear')

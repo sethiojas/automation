@@ -17,8 +17,10 @@ class Mail():
 		self.command = None
 		self.text_msg = None
 		self.mail_status = None
-		self.sent_mail = 0 #to track if any mail is sent by function other than the Task Started alert
 		
+		#to track if any mail is sent by function other than the Task Started alert
+		self.sent_mail = 0
+
 		#set from, to and subject msgibutes of email
 		self.email_msg = EmailMessage()
 		self.email_msg['from'] = self.bot_id

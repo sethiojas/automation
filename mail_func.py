@@ -16,6 +16,7 @@ class Mail():
 		self.sender_name = sender_name
 		self.command = None
 		self.text_msg = None
+		self.mail_status = None
 		self.sent_mail = 0 #to track if any mail is sent by function other than the Task Started alert
 		
 		#set from, to and subject msgibutes of email
@@ -67,8 +68,6 @@ class Mail():
 		
 		#search email by allowed sender name
 		uid = email_read.gmail_search(self.sender_name)
-
-		command = None
 		
 		if uid: #if mail found
 			print('Mail found')
@@ -79,40 +78,36 @@ class Mail():
 			msg = pyzmail.PyzMessage.factory(raw[uid[0]][b'BODY[]'])
 
 			#check if email address matches the allowed email
-			#if not then set command equal to auth_fail and
-			#text_msg = None
+			#and set the value of auth mail accordingly
 			if msg.get_addresses('from')[0][1] == self.allowed_email:
-				
-				command = msg.get_subject() #if true then command equals subject of email
-			
-				#get text form of mssg body
-				text_msg = msg.text_part.get_payload().decode()
+				self.mail_status = 'found'
 			else:
-				command = 'auth_fail'
-				text_msg = None
-		 	
-		 		
+				self.mail_status = 'auth fail'
+			
+			#parse email
+			self.command = msg.get_subject() 
+			self.text_msg = msg.text_part.get_payload().decode()
+	
 		 	#delete the read email
 			email_read.delete_messages(uid[0])
 			email_read.expunge()
 
 		#If no mail is found by the name of sender (uid does not exists)
 		else:
-			print('No mail found')
+			self.mail_status = 'not found'
 			
 		#logout from email
 		email_read.logout()
 
-		#If command is not None then save command and text_msg, 
-		#also return both of them.
-		#Otherwise return false to indicate that No email was found
-		#as a result of search
-		if command:
-			self.command = command
-			self.text_msg = text_msg
-			return {'command': command,
-					'text_msg': text_msg}
-		return False
+		if self.mail_status == 'auth fail':
+			return 'fail'
+
+		elif self.mail_status == 'found':
+			return {'command': self.command,
+					'text_msg': self.text_msg}
+		
+		elif self.mail_status == 'not found':
+			return False
 
 if __name__ == '__main__':
 	main()

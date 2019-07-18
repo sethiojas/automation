@@ -5,6 +5,7 @@ from functools import wraps
 import yoda
 import os
 
+sleep_time = 300
 
 def set_alert_msg(status_code):
 	''' determine which message to send as email alert based on the status code '''
@@ -69,6 +70,9 @@ def execute_task(command, args, mail=None):
 	#if command matches exe then run executable (optional : command line args)
 	elif command.lower() == 'exe':
 		exe_command(args, mail)
+	#if you want to change the default sleep time of 5 minutes
+	elif command.lower() == 'sleep':
+		change_sleep_time(args[0])
 
 	else:
 		if mail != None:
@@ -99,6 +103,15 @@ def exe_command(args, mail):
 		status_code = 3
 		mail.send_mail(status_code)
 
+def change_sleep_time(num):
+	''' changes the amount of time system sleeps after checking one mail '''
+	global sleep_time
+	sleep_time = num
+
+def get_sleep_time():
+	''' return the amount of time to sleep after checking one mail '''
+	global sleep_time
+	return sleep_time
 
 #helps to implement the optional command line arguments functionality
 #of open_exe() function

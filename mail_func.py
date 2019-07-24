@@ -18,12 +18,14 @@ class Mail():
 		#to track if any mail is sent by function other than the Task Started alert
 		self.sent_mail = 0
 
-		#set from, to and subject msgibutes of email
+		self.create_message_obj()
+
+	def create_message_obj(self):
+		'''#set from, to and subject message atributes of email'''
 		self.email_msg = EmailMessage()
 		self.email_msg['from'] = self.bot_id
 		self.email_msg['to'] = self.receiver_id
-		self.email_msg['subject'] = 'Task Status'
-
+		self.email_msg['subject'] = 'Email Notification'
 
 	def send_mail(self, status_code):
 		''' Function to send send email alerts '''

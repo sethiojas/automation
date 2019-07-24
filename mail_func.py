@@ -14,9 +14,6 @@ class Mail():
 		self.receiver_id = receiver_id
 		self.allowed_email = allowed_email
 		self.sender_name = sender_name
-		self.command = None
-		self.text_msg = None
-		self.mail_status = None
 		
 		#to track if any mail is sent by function other than the Task Started alert
 		self.sent_mail = 0
@@ -73,57 +70,52 @@ class Mail():
 		#search email by allowed sender name
 		uid = email_read.gmail_search(self.sender_name)
 
-		self.parse_mail(uid)
-	
-		return self.status()
+		response = self.parse_mail(uid)
+
+		#logout from email
+		email_read.logout()
+
+		return response
+
 
 	def parse_mail(self, uid):
 		
 		if uid: #if mail found
 			print('Mail found')
-			#raw form of mail
-			raw = email_read.fetch(uid,'BODY[]')
 			
-			''' parse email and delete it afterwards '''
-			msg = pyzmail.PyzMessage.factory(raw[uid[0]][b'BODY[]'])
-
 			#check if email address matches the allowed email
-			#and set the value of mail_status accordingly
-			self.auth_mail(msg)
+			#if it is not, Then return 'fail'
+			if self.auth_mail(msg):
 			
-			#parse email
-			self.command = msg.get_subject() 
-			self.text_msg = msg.text_part.get_payload().decode()
+				#raw form of mail
+				raw = email_read.fetch(uid,'BODY[]')
+				
+				''' parse email and delete it afterwards '''
+				msg = pyzmail.PyzMessage.factory(raw[uid[0]][b'BODY[]'])
 
-			#delete the read email
-			email_read.delete_messages(uid[0])
-			email_read.expunge()
+				command = msg.get_subject() 
+				text_msg = msg.text_part.get_payload().decode()
+
+				#delete the read email
+				email_read.delete_messages(uid[0])
+				email_read.expunge()
+
+				return {'command':command, 'text_msg':text_msg}
+
+			else:
+				return 'fail'
 			
 		#If no mail is found by the name of sender (uid does not exists)
+		#then return False
 		else:
-			self.mail_status = 'not found'
-			
-		#logout from email
-		email_read.logout()
+			return False
 		
 
 	def auth_mail(self,msg):
 		''' check if email is from allowed email address '''
 		if msg.get_addresses('from')[0][1] == self.allowed_email:
-			self.mail_status = 'found'
+			return True
 		else:
-			self.mail_status = 'auth fail'
-
-	def status(self):
-		''' returns a string based on value of mail_status variable '''
-		if self.mail_status == 'auth fail':
-			return 'fail'
-
-		elif self.mail_status == 'found':
-			return {'command': self.command,
-					'text_msg': self.text_msg}
-		
-		elif self.mail_status == 'not found':
 			return False
 
 if __name__ == '__main__':

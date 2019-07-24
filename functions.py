@@ -31,11 +31,11 @@ def set_alert_msg(status_code):
 
 	#task started email
 	if status_code == 0:
-		alert_msg += 'Started'
+		alert_msg += 'Task Started'
 	
 	#task ended email
 	elif status_code == 1:
-		alert_msg += 'Executed'
+		alert_msg += 'Task Executed'
 	
 	#if email is not from allowed email address
 	elif status_code == 2:

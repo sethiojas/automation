@@ -72,13 +72,28 @@ class Mail():
 		
 		#search email by allowed sender name
 		uid = email_read.gmail_search(self.sender_name)
+
+		self.parse_mail(uid)
+	
+		return self.status()
+
+	def parse_mail(self, uid):
 		
 		if uid: #if mail found
 			print('Mail found')
 			#raw form of mail
 			raw = email_read.fetch(uid,'BODY[]')
 			
-			self.parse_mail(raw, uid)
+			''' parse email and delete it afterwards '''
+			msg = pyzmail.PyzMessage.factory(raw[uid[0]][b'BODY[]'])
+
+			#check if email address matches the allowed email
+			#and set the value of mail_status accordingly
+			self.auth_mail(msg)
+			
+			#parse email
+			self.command = msg.get_subject() 
+			self.text_msg = msg.text_part.get_payload().decode()
 
 			#delete the read email
 			email_read.delete_messages(uid[0])
@@ -90,20 +105,7 @@ class Mail():
 			
 		#logout from email
 		email_read.logout()
-
-		return self.status()
-
-	def parse_mail(self, raw, uid):
-		''' parse email and delete it afterwards '''
-		msg = pyzmail.PyzMessage.factory(raw[uid[0]][b'BODY[]'])
-
-		#check if email address matches the allowed email
-		#and set the value of mail_status accordingly
-		self.auth_mail(msg)
 		
-		#parse email
-		self.command = msg.get_subject() 
-		self.text_msg = msg.text_part.get_payload().decode()
 
 	def auth_mail(self,msg):
 		''' check if email is from allowed email address '''

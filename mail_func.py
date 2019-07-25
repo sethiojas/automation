@@ -1,7 +1,7 @@
 import functions
 import smtplib
 import imapclient
-import pyzmail
+import email
 from time import sleep
 from email.message import EmailMessage
 
@@ -93,13 +93,15 @@ class Mail():
 			if self.auth_mail(msg):
 			
 				#raw form of mail
-				raw = email_read.fetch(uid,'BODY[]')
+				raw = email_read.fetch(uid, b'RFC822')
 				
 				''' parse email and delete it afterwards '''
-				msg = pyzmail.PyzMessage.factory(raw[uid[0]][b'BODY[]'])
+				msg = email.message_from_bytes(raw[uid[0]][b'RFC822'])
 
-				self.command = msg.get_subject() 
-				self.text_msg = msg.text_part.get_payload().decode()
+				self.command = msg.get('Subject')
+				for item in msg.walk():
+					if item.content_type() == 'text/plain':
+						self.text_msg = item.get_payload(decode = True)
 
 				#delete the read email
 				email_read.delete_messages(uid[0])

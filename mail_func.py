@@ -108,7 +108,13 @@ class Mail():
 
 	def auth_mail(self,msg):
 		''' check if email is from allowed email address '''
-		if msg.get_addresses('from')[0][1] == self.allowed_email:
+
+		#mail_from is string of type ``` FirstName LastName <email@domain.com> ```
+		#to extract characters between < and > , we use regular expression
+		 
+		find_mail = re.compile(r'<(.*)>')
+		mail_from = msg.get('From')
+		if find_mail.search(mail_from).group(1) == self.allowed_email:
 			return True
 		return False
 

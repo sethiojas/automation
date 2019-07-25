@@ -122,8 +122,7 @@ class Mail():
 		''' check if email is from allowed email address '''
 		if msg.get_addresses('from')[0][1] == self.allowed_email:
 			return True
-		else:
-			return False
+		return False
 
 if __name__ == '__main__':
 	main()

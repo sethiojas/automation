@@ -4,6 +4,7 @@ import imapclient
 import email
 from time import sleep
 from email.message import EmailMessage
+import re
 
 class Mail():
 
@@ -72,13 +73,13 @@ class Mail():
 		email_read.select_folder('INBOX', readonly = False)
 		uid = email_read.gmail_search(self.sender_name)
 
-		response = self.parse_mail(uid)
+		response = self.parse_mail(email_read, uid)
 
 		email_read.logout()
 		return response
 
 
-	def parse_mail(self, uid):
+	def parse_mail(self, email_read, uid):
 
 		#if uid is an empty list that means no email was found as a result of search
 		#hence false is returned to indicate the same. If uid is not empty then
@@ -88,14 +89,14 @@ class Mail():
 		if uid:
 			print('Mail found')
 			
+			raw = email_read.fetch(uid, b'RFC822')
+			msg = email.message_from_bytes(raw[uid[0]][b'RFC822'])
 			if self.auth_mail(msg):
-				raw = email_read.fetch(uid, b'RFC822')
-				msg = email.message_from_bytes(raw[uid[0]][b'RFC822'])
-
 				self.command = msg.get('Subject')
 				for item in msg.walk():
-					if item.content_type() == 'text/plain':
+					if item.get_content_type() == 'text/plain':
 						self.text_msg = item.get_payload(decode = True)
+						self.text_msg = self.text_msg.decode()#needed as otherwise results into TypeError in send_mail function
 				
 				#delete the read email
 				email_read.delete_messages(uid[0])

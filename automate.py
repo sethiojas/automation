@@ -48,8 +48,6 @@ try:
 
 		task_msg = mail.read_mail()
 
-		#if task_msg is false that means no mail was found
-		#if task_mgs is 'fail' = mail authentication failed
 		if task_msg != False:
 
 			if task_msg == 'fail':
@@ -79,7 +77,7 @@ try:
 					print("Task Status : ENDED")
 					mail.send_mail(status_code)
 				else:
-					mail.sent_mail = 0 #set sent_mail to 0 again for other tasks
+					mail.sent_mail = 0 #set sent_mail to 0 before other task
 		else:
 			print('No Mail Found')
 

@@ -18,6 +18,9 @@ class Mail():
 		#to track if any mail is sent by function other than the Task Started alert
 		self.sent_mail = 0
 
+		self.command = None
+		self.text_msg = None
+
 		self.create_message_obj()
 
 	def create_message_obj(self):
@@ -95,14 +98,14 @@ class Mail():
 				''' parse email and delete it afterwards '''
 				msg = pyzmail.PyzMessage.factory(raw[uid[0]][b'BODY[]'])
 
-				command = msg.get_subject() 
-				text_msg = msg.text_part.get_payload().decode()
+				self.command = msg.get_subject() 
+				self.text_msg = msg.text_part.get_payload().decode()
 
 				#delete the read email
 				email_read.delete_messages(uid[0])
 				email_read.expunge()
 
-				return {'command':command, 'text_msg':text_msg}
+				return {'command':self.command, 'text_msg':self.text_msg}
 
 			else:
 				return 'fail'

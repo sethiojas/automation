@@ -109,13 +109,11 @@ class Mail():
 
 				return {'command':self.command, 'text_msg':self.text_msg}
 
-			else:
-				return 'fail'
+			return 'fail'
 			
 		#If no mail is found by the name of sender (uid does not exists)
 		#then return False
-		else:
-			return False
+		return False
 		
 
 	def auth_mail(self,msg):

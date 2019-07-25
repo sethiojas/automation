@@ -12,7 +12,7 @@ def set_alert_msg(status_code):
 
 	# Task status 		code (int)
 	
-	#Command not in 	   -1  	
+	#Command not in 	    -  	
 	#list
 	
 	# Started 				0

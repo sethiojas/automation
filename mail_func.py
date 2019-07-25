@@ -44,7 +44,7 @@ class Mail():
 		#the email which the program sends.
 		
 		email_alert = functions.set_alert_msg(status_code)
-		task_info = '\n\nTask Details\n' + self.command + '\n' +self.text_msg
+		task_info = '\n\nTask Details\nCommand :\t'+self.command + '\nBody :\t' +self.text_msg
 
 		send_msg = email_alert + task_info
 		self.email_msg.set_content(send_msg)

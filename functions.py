@@ -12,7 +12,7 @@ def set_alert_msg(status_code):
 
 	# Task status 		code (int)
 	
-	#Command not in 	    -  	
+	#Command not in 	    random yoda quote  	
 	#list
 	
 	# Started 				0
@@ -26,29 +26,18 @@ def set_alert_msg(status_code):
 
 	#PERMISSION ERROR		4
 
-
 	alert_msg = ''
 
-	#task started email
 	if status_code == 0:
 		alert_msg += 'Task Started'
-	
-	#task ended email
 	elif status_code == 1:
 		alert_msg += 'Task Executed'
-	
-	#if email is not from allowed email address
 	elif status_code == 2:
 		alert_msg += 'COMMAND CAN NOT BE EXECUTED: AUTHENTICATION FAILURE'
-
-	#Path does not exists
 	elif status_code == 3:
 		alert_msg += 'INCORRECT PATH : Path does not exists.'
-
-	#user does not has execute access
 	elif status_code == 4:
 		alert_msg += 'PERMISSION ERROR : Path can not be executed'
-
 	else:
 		alert_msg = yoda.say_quote()
 
@@ -59,44 +48,42 @@ def set_alert_msg(status_code):
 def execute_task(command, args, mail=None):
 	''' Execute the task received in email '''
 
-	#if command is browser then fetch link and open it in default browser
+	#Task is executed based on the subject of email which is stored in command variable
+	#of mail class. It is assumed that body of email is relevant as per the email Subject.
+	#i.e. if command is browser then body contains only URLs seperated by spaces or newlines.
+	#if command is exe then body contains path to script and commandline args(if required)
+
 	if command.lower() == 'browser':
-		#assuming all arguments are links if subject is browser
-		#open all links
 		for link in args:
 			webbrowser.open(link)
 			sleep(2)
-
-	#if command matches exe then run executable (optional : command line args)
 	elif command.lower() == 'exe':
 		exe_command(args, mail)
-	#if you want to change the default sleep time of 5 minutes
 	elif command.lower() == 'sleep':
 		change_sleep_time(args[0])
-
 	else:
 		if mail != None:
 			mail.sent_mail = 1
-			status_code = -1
+			status_code = None
 			mail.send_mail(status_code)
 
 
 def exe_command(args, mail):
 	''' Executes when command is 'exe' '''
+	
+	#Path of executable which is provided is checked for existence
+	#if path exists then the program checks if it has execution rights 
+	#for the executable. If both of the checks are passed then open_exe
+	#function exeutes the program with command line args (optional)
 
-	#check if path to executable exists
 	if os.path.exists(args[0]):
-		#if path exists
-		#check if user has permission to execute that file
 		if os.access(args[0], os.X_OK):
 			open_exe(args)
-		
 		else:
 			print('PERMISSION ERROR : Path can not be executed')
 			mail.sent_mail = 1
 			status_code = 4
 			mail.send_mail(status_code)
-	
 	else:
 		print('INCORRECT PATH : Path not found')
 		mail.sent_mail = 1

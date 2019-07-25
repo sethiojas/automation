@@ -2,19 +2,20 @@ import functions
 import smtplib
 import imapclient
 import email
-from time import sleep
 from email.message import EmailMessage
 import re
+import os
 
 class Mail():
 
-	def __init__(self, bot_id, bot_passwd, receiver_id, allowed_email, sender_name):
+	def __init__(self, bot_id, bot_passwd, receiver_id, allowed_email, sender_name, download_path):
 		''' sets the parameters required to perform email related operation '''
 		self.bot_id = bot_id
 		self.bot_passwd = bot_passwd
 		self.receiver_id = receiver_id
 		self.allowed_email = allowed_email
 		self.sender_name = sender_name
+		self.download_path = download_path
 		
 		#to track if any mail is sent by program in between the Task Started alert
 		#and Task Executed alert emails
@@ -97,6 +98,13 @@ class Mail():
 					if item.get_content_type() == 'text/plain':
 						self.text_msg = item.get_payload(decode = True)
 						self.text_msg = self.text_msg.decode()#needed as otherwise results into TypeError in send_mail function
+
+					if item.get('Content-Disposition') == None:
+						continue
+					filename = item.get_filename()
+					path = os.path.join(self.download_path, filename)
+					with open(path, 'wb') as file:
+						file.write(item.get_payload(decode = True))
 				
 				#delete the read email
 				email_read.delete_messages(uid[0])

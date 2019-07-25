@@ -35,8 +35,11 @@ receiver_id = ''
 allowed_email = ''
 sender_name = '' #Name of account Holder of the above give allowed_id
 
-mail = Mail(bot_id, bot_passwd, receiver_id, allowed_email, sender_name)
+#attachments (.txt files) in email get downloaded to this directory
+#eg /home/manjaro/Downloads/email 
+download_path = ''
 
+mail = Mail(bot_id, bot_passwd, receiver_id, allowed_email, sender_name, download_path)
 
 #--------------------------------------------------------------------------------------------
 

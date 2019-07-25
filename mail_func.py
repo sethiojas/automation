@@ -5,6 +5,7 @@ import email
 from email.message import EmailMessage
 import re
 import os
+import datetime
 
 class Mail():
 
@@ -103,6 +104,10 @@ class Mail():
 						continue
 					filename = item.get_filename()
 					path = os.path.join(self.download_path, filename)
+					if not os.path.exists(self.download_path):
+						os.mkdir(self.download_path)
+					if os.path.exists(path):
+						path = path + str(datetime.datetime.now())
 					with open(path, 'wb') as file:
 						file.write(item.get_payload(decode = True))
 				

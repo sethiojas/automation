@@ -95,6 +95,15 @@ def exe_command(args, mail):
 		status_code = 3
 		mail.send_mail(status_code)
 
+def send_attachment(args, mail):
+	for path in args:
+		if os.path.exists(path):
+			#attach to mail
+		else:
+			mail.sent_mail = 1
+			status_code = 3
+			mail.send_mail(status_code)
+
 def change_sleep_time(num):
 	''' changes the amount of time system sleeps after checking one mail '''
 	global sleep_time

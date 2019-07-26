@@ -26,6 +26,8 @@ def set_alert_msg(status_code):
 
 	#PERMISSION ERROR		4
 
+	#Send attachment		5
+
 	alert_msg = ''
 
 	if status_code == 0:
@@ -38,6 +40,8 @@ def set_alert_msg(status_code):
 		alert_msg += 'INCORRECT PATH : Path does not exists.'
 	elif status_code == 4:
 		alert_msg += 'PERMISSION ERROR : Path can not be executed'
+	elif status_code == 5:
+		alert_msg += 'Here is the file you requested'
 	else:
 		alert_msg = yoda.say_quote()
 

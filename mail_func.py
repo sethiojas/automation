@@ -100,16 +100,7 @@ class Mail():
 						self.text_msg = item.get_payload(decode = True)
 						self.text_msg = self.text_msg.decode()#needed as otherwise results into TypeError in send_mail function
 
-					if item.get('Content-Disposition') == None:
-						continue
-					filename = item.get_filename()
-					path = os.path.join(self.download_path, filename)
-					if not os.path.exists(self.download_path):
-						os.mkdir(self.download_path)
-					if os.path.exists(path):
-						path = path + str(datetime.datetime.now())
-					with open(path, 'wb') as file:
-						file.write(item.get_payload(decode = True))
+					self.download_attachments(item)
 				
 				#delete the read email
 				email_read.delete_messages(uid[0])
@@ -131,6 +122,27 @@ class Mail():
 		if find_mail.search(mail_from).group(1) == self.allowed_email:
 			return True
 		return False
+
+	def download_attachments(self, item):
+		''' download attachments from email (if present) '''
+		
+		#functions checks is attachment(s) is present, if it is present then
+		#it downloads attachment(s) to specified directory.
+		#Directory is created if it does not already exists
+		#if a file with same name is present in the given directory
+		#then date and time is append at the at the end of the name of
+		#newly downloaded file
+		
+		if item.get('Content-Disposition') == None:
+			return None
+		filename = item.get_filename()
+		path = os.path.join(self.download_path, filename)
+		if not os.path.exists(self.download_path):
+			os.mkdir(self.download_path)
+		if os.path.exists(path):
+			path = path + str(datetime.datetime.now())
+		with open(path, 'wb') as file:
+			file.write(item.get_payload(decode = True))
 
 if __name__ == '__main__':
 	main()

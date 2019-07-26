@@ -49,7 +49,7 @@ def set_alert_msg(status_code):
 
 
 
-def execute_task(command, args, mail=None):
+def execute_task(command, args, mail):
 	''' Execute the task received in email '''
 
 	#Task is executed based on the subject of email which is stored in command variable
@@ -65,11 +65,12 @@ def execute_task(command, args, mail=None):
 		exe_command(args, mail)
 	elif command.lower() == 'sleep':
 		change_sleep_time(args[0])
+	elif command.lower() == 'send':
+		send_attachment(args, mail)
 	else:
-		if mail != None:
-			mail.sent_mail = 1
-			status_code = None
-			mail.send_mail(status_code)
+		mail.sent_mail = 1
+		status_code = None
+		mail.send_mail(status_code)
 
 
 def exe_command(args, mail):

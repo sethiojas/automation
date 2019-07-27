@@ -147,6 +147,13 @@ class Mail():
 			file.write(item.get_payload(decode = True))
 
 	def send_attachment(self, args):
+		''' Send files via email '''
+
+		#function goes through the list of path provided in the mail body
+		#and checks if the path exists. If the path is valid then the file
+		#whose path is provided is added as an attachment to the email notification
+		#with the same name by which it is stored on the user's computer
+
 		for path in args:
 			if os.path.exists(path):
 				with open(path, 'rb') as file:

@@ -5,7 +5,7 @@ from functools import wraps
 import yoda
 import os
 
-sleep_time = 300
+sleep_time = 30
 
 def set_alert_msg(status_code):
 	''' determine which message to send as email alert based on the status code '''
@@ -99,7 +99,7 @@ def exe_command(args, mail):
 def change_sleep_time(num):
 	''' changes the amount of time system sleeps after checking one mail '''
 	global sleep_time
-	sleep_time = num
+	sleep_time = int(num)
 
 def get_sleep_time():
 	''' return the amount of time to sleep after checking one mail '''

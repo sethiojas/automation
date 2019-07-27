@@ -41,7 +41,7 @@ def set_alert_msg(status_code):
 	elif status_code == 4:
 		alert_msg += 'PERMISSION ERROR : Path can not be executed'
 	elif status_code == 5:
-		alert_msg += 'Here is the file you requested'
+		alert_msg += 'Here is/are the file(s) you requested'
 	else:
 		alert_msg = yoda.say_quote()
 
@@ -66,7 +66,7 @@ def execute_task(command, args, mail):
 	elif command.lower() == 'sleep':
 		change_sleep_time(args[0])
 	elif command.lower() == 'send':
-		send_attachment(args, mail)
+		mail.send_attachment(args)
 	else:
 		mail.sent_mail = 1
 		status_code = None
@@ -94,16 +94,7 @@ def exe_command(args, mail):
 		mail.sent_mail = 1
 		status_code = 3
 		mail.send_mail(status_code)
-
-def send_attachment(args, mail):
-	pass
-	# for path in args:
-	# 	if os.path.exists(path):
-	# 		#attach to mail
-	# 	else:
-	# 		mail.sent_mail = 1
-	# 		status_code = 3
-	# 		mail.send_mail(status_code)
+			
 
 def change_sleep_time(num):
 	''' changes the amount of time system sleeps after checking one mail '''

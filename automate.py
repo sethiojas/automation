@@ -91,8 +91,8 @@ try:
 		#sleep for specified amount of time (Defaults to 5 minutes)
 		#before checking email again
 		t = functions.get_sleep_time()
-		sleep(t)
 		print(f'Sleeping for {t} seconds')
+		sleep(t)
 
 #stop if keyboard interrupt is encountered
 except KeyboardInterrupt:

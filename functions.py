@@ -5,7 +5,7 @@ from functools import wraps
 import yoda
 import os
 
-sleep_time = 30
+sleep_time = 120
 
 def set_alert_msg(status_code):
 	''' determine which message to send as email alert based on the status code '''

@@ -48,7 +48,7 @@ class Mail():
 		#the email which the program sends.
 		
 		email_alert = functions.set_alert_msg(status_code)
-		task_info = '\n\nTask Details\nCommand :\t'+self.command + '\nBody :\t' +self.text_msg
+		task_info = '\n\nTask Details\nCommand :\t'+str(self.command) + '\nBody :\t' +str(self.text_msg)
 
 		send_msg = email_alert + task_info
 		self.email_msg.attach(MIMEText(send_msg))
@@ -145,6 +145,17 @@ class Mail():
 			path = path + str(datetime.datetime.now())
 		with open(path, 'wb') as file:
 			file.write(item.get_payload(decode = True))
+
+	def send_attachment(self, args):
+		for path in args:
+			if os.path.exists(path):
+				with open(path, 'rb') as file:
+					part = MIMEApplication(
+						file.read(),
+						Name = os.path.basename(path))
+				part['Content-Disposition'] = f'attachment; filename="{os.path.basename(path)}" '
+				self.email_msg.attach(part)
+
 
 if __name__ == '__main__':
 	main()

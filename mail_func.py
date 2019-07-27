@@ -48,6 +48,7 @@ class Mail():
 		#the email which the program sends.
 		
 		email_alert = functions.set_alert_msg(status_code)
+		#convert command and text_msg to str so that concatination can take place even if they have None value
 		task_info = '\n\nTask Details\nCommand :\t'+str(self.command) + '\nBody :\t' +str(self.text_msg)
 
 		send_msg = email_alert + task_info

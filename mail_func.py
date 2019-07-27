@@ -2,7 +2,9 @@ import functions
 import smtplib
 import imapclient
 import email
-from email.message import EmailMessage
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import re
 import os
 import datetime
@@ -29,7 +31,7 @@ class Mail():
 
 	def create_message_obj(self):
 		'''set from, to and subject message atributes of email'''
-		self.email_msg = EmailMessage()
+		self.email_msg = MIMEMultipart()
 		self.email_msg['from'] = self.bot_id
 		self.email_msg['to'] = self.receiver_id
 		self.email_msg['subject'] = 'Email Notification'
@@ -49,7 +51,7 @@ class Mail():
 		task_info = '\n\nTask Details\nCommand :\t'+self.command + '\nBody :\t' +self.text_msg
 
 		send_msg = email_alert + task_info
-		self.email_msg.set_content(send_msg)
+		self.email_msg.attach(MIMEText(send_msg))
 	
 		mail = smtplib.SMTP('smtp.gmail.com', 587)
 		mail.ehlo()

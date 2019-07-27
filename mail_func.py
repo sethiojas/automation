@@ -27,8 +27,6 @@ class Mail():
 		self.command = None
 		self.text_msg = None
 
-		self.create_message_obj()
-
 	def create_message_obj(self):
 		'''set from, to and subject message atributes of email'''
 		self.email_msg = MIMEMultipart()
@@ -47,6 +45,7 @@ class Mail():
 		#This new string is stored in send_msg variable and forms the body of
 		#the email which the program sends.
 		
+		self.create_message_obj()
 		email_alert = functions.set_alert_msg(status_code)
 		#convert command and text_msg to str so that concatination can take place even if they have None value
 		task_info = '\n\nTask Details\nCommand :\t'+str(self.command) + '\nBody :\t' +str(self.text_msg)
@@ -122,7 +121,7 @@ class Mail():
 		 
 		find_mail = re.compile(r'<(.*)>')
 		mail_from = msg.get('From')
-		if find_mail.search(mail_from).group(1) == self.allowed_email:
+		if find_mail.search(mail_from).group(1) in self.allowed_email:
 			return True
 		return False
 

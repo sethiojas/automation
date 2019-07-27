@@ -32,7 +32,7 @@ bot_passwd = ''
 receiver_id = ''
 
 #instructions sent from only this email will be executed
-allowed_email = ''
+allowed_email = []
 sender_name = '' #Name of account Holder of the above give allowed_id
 
 #attachments (.txt files) in email get downloaded to this directory

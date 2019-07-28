@@ -5,6 +5,7 @@ import email
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.message import EmailMessage
 import re
 import os
 import datetime
@@ -29,30 +30,23 @@ class Mail():
 
 	def create_message_obj(self):
 		'''set from, to and subject message atributes of email'''
-		self.email_msg = MIMEMultipart()
+		
 		self.email_msg['from'] = self.bot_id
 		self.email_msg['to'] = self.receiver_id
 		self.email_msg['subject'] = 'Email Notification'
 
 	def send_mail(self, status_code):
 		''' Function to send send email alerts '''
+		
+		#create_message_body create the body of the email
+		#which is sent to the receiver_id by this function
+		
 		print('Sending mail ....')
-		
-		#appropriate message to send via email is determined via value of
-		#status code which is  passed as an argument to set_alert_msg function.
-		#set_alert_msg function returns a string which is concatinated with
-		#the contents of email which was received (stored in variable task_info).
-		#This new string is stored in send_msg variable and forms the body of
-		#the email which the program sends.
-		
-		self.create_message_obj()
-		email_alert = functions.set_alert_msg(status_code)
-		#convert command and text_msg to str so that concatination can take place even if they have None value
-		task_info = '\n\nTask Details\nCommand :\t'+str(self.command) + '\nBody :\t' +str(self.text_msg)
-
-		send_msg = email_alert + task_info
-		self.email_msg.attach(MIMEText(send_msg))
-	
+		body = self.create_email_body(status_code)
+		if status_code == 5:
+			self.email_msg.attach(MIMEText(body))
+		else:
+			self.email_msg.set_content(body)
 		mail = smtplib.SMTP('smtp.gmail.com', 587)
 		mail.ehlo()
 		mail.starttls()
@@ -62,6 +56,28 @@ class Mail():
 
 		mail.quit()
 		print('Done')
+
+	def create_email_body(self, status_code):
+		''' Function to create body of email '''
+
+		#appropriate message to send via email is determined via value of
+		#status code which is  passed as an argument to set_alert_msg function.
+		#set_alert_msg function returns a string which is concatinated with
+		#the contents of email which was received (stored in variable task_info).
+		#This new string is stored in send_msg variable and forms the body of
+		#the email which the program sends.
+
+		if status_code != 5:
+			self.email_msg = EmailMessage()	
+		
+		self.create_message_obj()
+		email_alert = functions.set_alert_msg(status_code)
+		#convert command and text_msg to str so that concatination can take place even if they have None value
+		task_info = '\n\nTask Details\nCommand :\t'+str(self.command) + '\nBody :\t' +str(self.text_msg)
+
+		send_msg = email_alert + task_info
+		return send_msg
+
 
 
 	def read_mail(self):
@@ -154,14 +170,19 @@ class Mail():
 		#whose path is provided is added as an attachment to the email notification
 		#with the same name by which it is stored on the user's computer
 
+		self.email_msg = MIMEMultipart()
 		for path in args:
 			if os.path.exists(path):
 				with open(path, 'rb') as file:
 					part = MIMEApplication(
 						file.read(),
 						Name = os.path.basename(path))
-				part['Content-Disposition'] = f'attachment; filename="{os.path.basename(path)}" '
+				# part['Content-Disposition'] = f'attachment; filename="{os.path.basename(path)}" '
+				part.add_header('Content-Disposition', 'attachment', filename=os.path.basename(path))
 				self.email_msg.attach(part)
+		self.sent_mail = 1	
+		status_code = 5
+		self.send_mail(status_code)
 
 
 if __name__ == '__main__':

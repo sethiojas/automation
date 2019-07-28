@@ -65,7 +65,9 @@ class Mail():
 		#set_alert_msg function returns a string which is concatinated with
 		#the contents of email which was received (stored in variable task_info).
 		#This new string is stored in send_msg variable and forms the body of
-		#the email which the program sends.
+		#the email.
+		#email_msg is an instance of EmailMessage only if no attachments are to be sent
+		#via email.
 
 		if status_code != 5:
 			self.email_msg = EmailMessage()	
@@ -167,7 +169,7 @@ class Mail():
 
 		#function goes through the list of path provided in the mail body
 		#and checks if the path exists. If the path is valid then the file
-		#whose path is provided is added as an attachment to the email notification
+		#whose path is provided is added as an attachment to the email
 		#with the same name by which it is stored on the user's computer
 
 		self.email_msg = MIMEMultipart()

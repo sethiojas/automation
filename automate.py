@@ -1,20 +1,3 @@
-#---------------------------USAGE----------------------------------------------------------
-#VALID SUBJECTS :
-#1)browser 
-#2)exe
-#<subjects are case insensitive>
-
-#subject: (One of the given valid entires)
-#<body>
-#link or path/to/executable
-#command ----
-#line       |
-#args       |-------> if subject is exe
-#(optiional)|
-#for	    |
-#script------
-
-#---------------------------------------------------------------------------------------------
 from time import sleep
 from os import system
 from mail_func import Mail

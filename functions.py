@@ -4,6 +4,8 @@ from time import sleep
 from functools import wraps
 import yoda
 import os
+import shelve
+from simplecrypt import decrypt
 
 sleep_time = 120
 
@@ -46,7 +48,6 @@ def set_alert_msg(status_code):
 		alert_msg = yoda.say_quote()
 
 	return alert_msg
-
 
 
 def execute_task(command, args, mail):
@@ -94,7 +95,29 @@ def exe_command(args, mail):
 		mail.sent_mail = 1
 		status_code = 3
 		mail.send_mail(status_code)
-			
+
+
+def decrypt_and_parse_data():
+	''' loads and decrypts the contents of data file'''
+
+	#loads the shelve file to retrieve data. Then decrypts the value of 
+	#corresponding key, save it in the same dictionary and return it
+
+	print('Loading data...')
+	sv = shelve.open('data')
+	data = sv['data']
+	sv.close()
+	print('Done')
+	os.system('clear')
+	master = input('Enter master password> ')
+	print('Decrypting data')
+	for key, value in data.items():
+		print(f'Getting {key}...')
+		data[key] = decrypt(master, value)
+		print('Done')
+	print('Data decrypted')
+	return data
+
 
 def change_sleep_time(num):
 	''' changes the amount of time system sleeps after checking one mail '''

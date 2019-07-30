@@ -139,7 +139,7 @@ class Mail():
 		 
 		find_mail = re.compile(r'<(.*)>')
 		mail_from = msg.get('From')
-		if find_mail.search(mail_from).group(1) in self.allowed_email:
+		if find_mail.search(mail_from).group(1) == self.allowed_email:
 			return True
 		return False
 

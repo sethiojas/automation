@@ -4,12 +4,14 @@ from mail_func import Mail
 import functions
 
 data = functions.decrypt_and_parse_data()
-mail = Mail(
-	data['bot_id'], data['bot_passwd'], data['receiver_id'],
-	data['allowed_email'], data['sender_name'], data['download_path']
-	)
-
 try:
+	if data == None:
+		raise KeyboardInterrupt
+	mail = Mail(
+		data['bot_id'], data['bot_passwd'], data['receiver_id'],
+		data['allowed_email'], data['sender_name'], data['download_path']
+		)
+
 	while True:
 		
 		system('clear')

@@ -2,6 +2,7 @@ import shelve
 from simplecrypt import encrypt
 from os import system
 import getpass
+import sys
 
 #get the required credentials and data
 bot_id = input('Bot Email ID> ')
@@ -16,7 +17,15 @@ download_path = input('Download email attachments(if present) to this directory'
 					'\n    /path/to/directory/ (wrong)'
 					'\n> ')
 master = getpass.getpass('Enter master password> ')
+master2 = getpass.getpass('Re-Enter master password> ')
 
+attempts = 3
+while master != master2 and attempts > 0:
+	print(f"Passwords do not match. Attempts left {attempts}")
+	master2 = getpass.getpass('Re-Enter master password> ')
+	attempts -=1
+if attempts == 0:
+	sys.exit("PASSWORD FAILURE : EXITING")
 system('clear')
 
 #saves them in dictionary

@@ -135,7 +135,7 @@ def list_contents(path, mail):
 						body += 'd--' + item.name
 				body += '\n'
 	except FileNotFoundError as err:
-		body += err
+		body += str(err)
 
 	status_code = 6
 	mail.create_message_obj(status_code)

@@ -6,6 +6,7 @@ import yoda
 import os
 import shelve
 from simplecrypt import decrypt
+import getpass
 
 # Task status 		code (int)
 	
@@ -113,7 +114,7 @@ def decrypt_and_parse_data():
 	sv.close()
 	print('Done')
 	os.system('clear')
-	master = input('Enter master password> ')
+	master = getpass.getpass('Enter master password> ')
 	print('DECRYPTING DATA')
 	try:
 		for key, value in data.items():

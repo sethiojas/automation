@@ -1,10 +1,11 @@
 import shelve
 from simplecrypt import encrypt
 from os import system
+import getpass
 
 #get the required credentials and data
 bot_id = input('Bot Email ID> ')
-bot_passwd = input(f'Password for {bot_id}> ')
+bot_passwd = getpass.getpass(f'Password for {bot_id}> ')
 
 system('clear')
 receiver_id = input('Receive email alerts on this ID> ')
@@ -14,7 +15,7 @@ download_path = input('Download email attachments(if present) to this directory'
 					'\neg: /path/to/directory  (correct)'
 					'\n    /path/to/directory/ (wrong)'
 					'\n> ')
-master = input('Enter master password> ')
+master = getpass.getpass('Enter master password> ')
 
 system('clear')
 

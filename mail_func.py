@@ -36,11 +36,12 @@ class Mail():
 		#which is sent to the receiver_id by this function
 		
 		print('Sending mail ....')
-		body = self.create_email_body(status_code)
-		if status_code == 5:
-			self.email_msg.attach(MIMEText(body))
-		else:
-			self.email_msg.set_content(body)
+		if status_code != 6:
+			body = self.create_email_body(status_code)
+			if status_code == 5:
+				self.email_msg.attach(MIMEText(body))
+			else:
+				self.email_msg.set_content(body)
 		mail = smtplib.SMTP('smtp.gmail.com', 587)
 		mail.ehlo()
 		mail.starttls()

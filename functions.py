@@ -115,11 +115,14 @@ def decrypt_and_parse_data():
 	os.system('clear')
 	master = input('Enter master password> ')
 	print('DECRYPTING DATA')
-	for key, value in data.items():
-		print(f'Getting {key}...')
-		data[key] = decrypt(master, value).decode()
-		print('Done')
-	return data
+	try:
+		for key, value in data.items():
+			print(f'Getting {key}...')
+			data[key] = decrypt(master, value).decode()
+			print('Done')
+		return data
+	except Exception as err:
+		print(err)
 
 def list_contents(path, mail):
 	body = ''

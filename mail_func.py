@@ -28,8 +28,11 @@ class Mail():
 		self.command = None
 		self.text_msg = None
 
-	def create_message_obj(self):
+	def create_message_obj(self, status_code):
 		'''set from, to and subject message atributes of email'''
+
+		if status_code != 5:
+			self.email_msg = EmailMessage()
 		
 		self.email_msg['from'] = self.bot_id
 		self.email_msg['to'] = self.receiver_id
@@ -65,14 +68,9 @@ class Mail():
 		#set_alert_msg function returns a string which is concatinated with
 		#the contents of email which was received (stored in variable task_info).
 		#This new string is stored in send_msg variable and forms the body of
-		#the email.
-		#email_msg is an instance of EmailMessage only if no attachments are to be sent
-		#via email.
-
-		if status_code != 5:
-			self.email_msg = EmailMessage()	
+		#the email.	
 		
-		self.create_message_obj()
+		self.create_message_obj(status_code)
 		email_alert = functions.set_alert_msg(status_code)
 		#convert command and text_msg to str so that concatination can take place even if they have None value
 		task_info = '\n\nTask Details\nCommand :\t'+str(self.command) + '\nBody :\t' +str(self.text_msg)

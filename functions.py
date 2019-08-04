@@ -108,7 +108,6 @@ def decrypt_and_parse_data():
 	#loads the shelve file to retrieve data. Then decrypts the value of 
 	#corresponding key, save it in the same dictionary and return it
 
-	print('Loading data...')
 	sv = shelve.open('data')
 	data = sv['data']
 	sv.close()
@@ -120,7 +119,6 @@ def decrypt_and_parse_data():
 		print(f'Getting {key}...')
 		data[key] = decrypt(master, value).decode()
 		print('Done')
-	print('Data decrypted')
 	return data
 
 def list_contents(path, mail):

@@ -114,7 +114,7 @@ def decrypt_and_parse_data():
 	print('Done')
 	os.system('clear')
 	master = input('Enter master password> ')
-	print('Decrypting data')
+	print('DECRYPTING DATA')
 	for key, value in data.items():
 		print(f'Getting {key}...')
 		data[key] = decrypt(master, value).decode()

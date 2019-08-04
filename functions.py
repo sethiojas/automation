@@ -9,7 +9,7 @@ from simplecrypt import decrypt
 
 # Task status 		code (int)
 	
-	#Command not in 	    random yoda quote  	
+	#Command not in 	    random yoda quote 	(exception as code is not an int) 	
 	#list
 	
 	# Started 				0

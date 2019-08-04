@@ -55,6 +55,7 @@ class Mail():
 	def create_email_body(self, status_code):
 		''' Function to create body of email '''
 
+		#Various details of email are handled by create_message_obj 
 		#appropriate message to send via email is determined via value of
 		#status code which is  passed as an argument to set_alert_msg function.
 		#set_alert_msg function returns a string which is concatinated with

@@ -72,7 +72,9 @@ class Mail():
 		return send_msg
 
 	def create_message_obj(self, status_code):
-		'''set from, to and subject message atributes of email'''
+		'''
+		Create message object (status_code dependent); set from, to and subject message atributes of email
+		'''
 
 		if status_code != 5:
 			self.email_msg = EmailMessage()

@@ -118,7 +118,7 @@ def decrypt_and_parse_data():
 	print('Decrypting data')
 	for key, value in data.items():
 		print(f'Getting {key}...')
-		data[key] = decrypt(master, value)
+		data[key] = decrypt(master, value).decode()
 		print('Done')
 	print('Data decrypted')
 	return data
@@ -136,7 +136,7 @@ def list_contents(path, mail):
 				body += '\n'
 	except FileNotFoundError as err:
 		body += err
-		
+
 	status_code = 6
 	mail.create_message_obj(status_code)
 	mail.email_msg.set_content(body)

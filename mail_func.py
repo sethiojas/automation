@@ -28,15 +28,6 @@ class Mail():
 		self.command = None
 		self.text_msg = None
 
-	def create_message_obj(self, status_code):
-		'''set from, to and subject message atributes of email'''
-
-		if status_code != 5:
-			self.email_msg = EmailMessage()
-		
-		self.email_msg['from'] = self.bot_id
-		self.email_msg['to'] = self.receiver_id
-		self.email_msg['subject'] = 'Email Notification'
 
 	def send_mail(self, status_code):
 		''' Function to send send email alerts '''
@@ -78,6 +69,15 @@ class Mail():
 		send_msg = email_alert + task_info
 		return send_msg
 
+	def create_message_obj(self, status_code):
+		'''set from, to and subject message atributes of email'''
+
+		if status_code != 5:
+			self.email_msg = EmailMessage()
+		
+		self.email_msg['from'] = self.bot_id
+		self.email_msg['to'] = self.receiver_id
+		self.email_msg['subject'] = 'Email Notification'
 
 
 	def read_mail(self):

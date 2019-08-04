@@ -11,6 +11,7 @@ import sys
 #Upon successful setting-up of master password the credentials are encrypted and saved
 #in a pickle file named `data`.
 
+system('clear')
 bot_id = input('Bot Email ID> ')
 bot_passwd = getpass.getpass(f'Password for {bot_id}> ')
 

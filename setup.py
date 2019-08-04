@@ -4,7 +4,13 @@ from os import system
 import getpass
 import sys
 
-#get the required credentials and data
+#User is prompted for required credentials for the functioning of automate.py
+#A master password is set to lock the data. User has to Re-enter the master password
+#for program to save data. 3 attempts are given to user to make the master2 match the
+#master password. 3 failed attempts stop the program and data is discarded.
+#Upon successful setting-up of master password the credentials are encrypted and saved
+#in a pickle file named `data`.
+
 bot_id = input('Bot Email ID> ')
 bot_passwd = getpass.getpass(f'Password for {bot_id}> ')
 

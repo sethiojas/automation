@@ -116,7 +116,7 @@ An email such as
 subject : list
 body : home/this
 ```
-will result in an email that will look like this
+will result in a response email that will look like this
 
 ```
 f--1.jpg

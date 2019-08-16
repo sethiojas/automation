@@ -54,6 +54,8 @@ python automate.py
 * email
 * re
 * datetime
+* sys
+* random
 
 ## Valid Email Subjects
 * [browser](#browser)

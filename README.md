@@ -20,6 +20,8 @@ Instructions from emails other than the pre-specified email are marked as unauth
 
 ## Installation
 ***Note : This program was build on Python 3.7.3***
+***Make sure that all the required modules are there before proceeding with Installation***
+
 1. Open the terminal
 
 2. Move into the directory where the files are stored.
@@ -41,6 +43,7 @@ cd path/to/automation/directory/
 python automate.py
 ```
 ## Modules Used
+***List contains pre-installed as well explicitly installed modules***
 * subprocess
 * time
 * webbrowser

@@ -91,11 +91,11 @@ will set the delay time of 2 seconds, not 2 minutes.
 Sends the list of all the files/directories stored at a given path.
 ```
 home
-	|this
-		|1.jpg
-		|hello
-			|eg.txt
-		|yes.mp4
+  |this
+    |1.jpg
+	|hello
+	  |eg.txt
+	|yes.mp4
 ```
 An email such as
 ```
@@ -105,7 +105,7 @@ body : home/this
 will result in an email that will look like this
 
 ```
-f--1,jpg
+f--1.jpg
 d--hello
 f--yes.mp
 ```

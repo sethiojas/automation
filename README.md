@@ -7,7 +7,7 @@
 * [Saving Email attachments](#savig-email-attachments)
 * [Examples](#examples)
 * [Easter-Egg](#easter-egg)
-* [To-Do's](#to-do's)
+* [To-Do's](#to-dos)
 
 ## About
 This a program aimed at remotely controlling your computer via email instructions.
@@ -23,10 +23,14 @@ Instructions from emails other than the pre-specified email are marked as unauth
 1. Open the terminal
 
 2. Move into the directory where the files are stored.
-`cd path/to/automation/directory/`
+```
+cd path/to/automation/directory/
+```
 
 3. Run `setup.py` file.
-` python setup.py`
+```
+python setup.py
+```
 
 4. Fill the information/credentials as asked by the program.
 
@@ -101,9 +105,9 @@ Sends the list of all the files/directories stored at a given path.
 home
   |this
     |1.jpg
-	|hello
-	  |eg.txt
-	|yes.mp4
+    |hello
+      |eg.txt
+    |yes.mp4
 ```
 An email such as
 ```
@@ -131,6 +135,6 @@ the file name.
 (just saying)**
 
 ## To-Do's
-* [] Check if Path given is directory \(send command\).
-* [] Send Contents of whole directory via email.
+* [ ] Check if Path given is directory \(send command\).
+* [ ] Send all the contents of directory via email.
 * [x] Add option to remotely stop Program.

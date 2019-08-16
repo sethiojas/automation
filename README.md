@@ -20,6 +20,7 @@ Instructions from emails other than the pre-specified email are marked as unauth
 
 ## Installation
 ***Note : This program was build on Python 3.7.3***
+
 ***Make sure that all the required modules are there before proceeding with Installation***
 
 1. Open the terminal

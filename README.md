@@ -4,6 +4,7 @@
 * [Installation](#installation)
 * [Modules Used](#modules-used)
 * [Valid Email Subjects](#valid-email-subjects)
+* [Saving Email attachments](#savig-email-attachments)
 * [Examples](#examples)
 * [Easter-Egg](#easter-egg)
 * [To-Do's](#to-do's)
@@ -117,6 +118,13 @@ d--hello
 f--yes.mp
 ```
 where 'f' denotes file and 'd' denotes directory.
+
+## Saving Email attachments
+Any attachment (if present) in the email from the pre-specified email address gets saved to the download path
+specified by the user at the time when setup.py was run.
+The attachments have the same name as that of the original file attached in the email.
+If the file name already exists, then the date and time at which the file was downloaded is appended at the end of
+the file name.
 
 ## Easter Egg
 **Find out what happens if the email subject is not one of the Valid email Subjects. The result may be different everytime

@@ -8,12 +8,12 @@
 ## About
 This a program aimed at remotely controlling your computer via email instructions.
 This program needs a spare GMAIL id to work.
-*** IMPORTATNT : ENABLE 'ALLOW LESS SECURE APPS TO ACCESS YOUR ACCOUNT' IN THE GMAIL ACCOUNT ***
+***IMPORTATNT : ENABLE 'ALLOW LESS SECURE APPS TO ACCESS YOUR ACCOUNT' IN THE GMAIL ACCOUNT***
 Instructions can be sent to this spare GMAIL id via only a pre-specified email address.
 Instructions from emails other than the pre-specified email are marked as unauthorized.
 
 ## Installation
-*** Note : This program was build on Python 3.7.3 ***
+***Note : This program was build on Python 3.7.3***
 1. Open the terminal
 
 2. Move into the directory where the files are stored.

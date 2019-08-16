@@ -74,6 +74,8 @@ def execute_task(command, args, mail):
 		mail.send_attachment(args)
 	elif command.lower() == 'list':
 		list_contents(args[0], mail)
+	elif command.lower() == 'stop':
+		raise KeyboardInterrupt
 	else:
 		mail.sent_mail = 1
 		status_code = None

@@ -58,9 +58,8 @@ def execute_task(command, args, mail):
 	''' Execute the task received in email '''
 
 	#Task is executed based on the subject of email which is stored in command variable
-	#of mail class. It is assumed that body of email is relevant as per the email Subject.
-	#i.e. if command is browser then body contains only URLs seperated by newlines.
-	#if command is exe then body contains path to script and commandline args(if required)
+	#of mail class. It is assumed that body of email is relevant to the email Subject.
+	#i.e. if command is browser then body contains URL(s) only.
 
 	if command.lower() == 'browser':
 		for link in args:

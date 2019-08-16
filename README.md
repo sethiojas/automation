@@ -6,7 +6,7 @@
 * [Valid Email Subjects](#valid-email-subjects)
 * [Examples](#examples)
 * [Easter-Egg](#easter-egg)
-* [To-Do's](#to-do's)
+* [To-Do's](#to-dos)
 
 ## About
 This a program aimed at remotely controlling your computer via email instructions.
@@ -100,9 +100,9 @@ Sends the list of all the files/directories stored at a given path.
 home
   |this
     |1.jpg
-	|hello
-	  |eg.txt
-	|yes.mp4
+    |hello
+      |eg.txt
+    |yes.mp4
 ```
 An email such as
 ```

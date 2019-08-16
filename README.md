@@ -78,6 +78,8 @@ Email body should contain Data in this order :
 
 ***Note: everything should be seperated by newlines***
 
+***Only one path per email***
+
 * ### Send
 Get file via email from your system.
 The body should contain the path to file.
@@ -131,6 +133,22 @@ specified by the user at the time when setup.py was run.
 The attachments have the same name as that of the original file attached in the email.
 If the file name already exists, then the date and time at which the file was downloaded is appended at the end of
 the file name.
+
+## Examples
+
+![Browser Example](https://github.com/sethiojas/readme_images/blob/master/automation/browser.png)
+
+![Exe Example](https://github.com/sethiojas/readme_images/blob/master/automation/exe1.png)
+
+![Exe Example](https://github.com/sethiojas/readme_images/blob/master/automation/exe2.png)
+
+![Send Example](https://github.com/sethiojas/readme_images/blob/master/automation/send.png)
+
+![List Example](https://github.com/sethiojas/readme_images/blob/master/automation/list.png)
+
+![Sleep Example](https://github.com/sethiojas/readme_images/blob/master/automation/sleep.png)
+
+![Stop Example](https://github.com/sethiojas/readme_images/blob/master/automation/stop.png)
 
 ## Easter Egg
 **Find out what happens if the email subject is not one of the Valid email Subjects. The result may be different everytime

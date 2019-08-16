@@ -5,6 +5,8 @@
 * [Modules Used](#modules-used)
 * [Valid Email Subjects](#valid-email-subjects)
 * [Examples](#examples)
+* [Easter-Egg](#easter-egg)
+* [To-Do's](#to-do's)
 
 ## About
 This a program aimed at remotely controlling your computer via email instructions.
@@ -73,10 +75,15 @@ Email body should contain Data in this order :
 Get file via email from your system.
 The body should contain the path to file.
 ***The path given must not be of a directory***
+
 * ### Sleep
 Change the amount of delay time after parsing one email.
 The default is 120 seconds.
 i.e. the program sleeps for 120 seconds after reading/executing one email/task respectively
+
+* ### Stop
+Remotely stop the execution of automate.py.
+Email body could be left empty.
 
 ***Time should be specified in seconds in the email body***
 
@@ -109,4 +116,13 @@ f--1.jpg
 d--hello
 f--yes.mp
 ```
-where 'f' denotes file and 'd' denotes directory.	
+where 'f' denotes file and 'd' denotes directory.
+
+## Easter Egg
+**Find out what happens if the email subject is not one of the Valid email Subjects. The result may be different everytime
+(just saying)**
+
+## To-Do's
+* [] Check if Path given is directory \(send command\).
+* [] Send Contents of whole directory via email.
+* [x] Add option to remotely stop Program.

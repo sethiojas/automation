@@ -123,6 +123,6 @@ where 'f' denotes file and 'd' denotes directory.
 (just saying)**
 
 ## To-Do's
-* [] Check if Path given is directory \(send command\).
-* [] Send Contents of whole directory via email.
+* [ ] Check if Path given is directory \(send command\).
+* [ ] Send Contents of whole directory via email.
 * [x] Add option to remotely stop Program.

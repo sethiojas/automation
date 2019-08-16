@@ -22,10 +22,14 @@ Instructions from emails other than the pre-specified email are marked as unauth
 1. Open the terminal
 
 2. Move into the directory where the files are stored.
-`cd path/to/automation/directory/`
+```
+cd path/to/automation/directory/
+```
 
 3. Run `setup.py` file.
-` python setup.py`
+```
+python setup.py
+```
 
 4. Fill the information/credentials as asked by the program.
 
@@ -124,5 +128,5 @@ where 'f' denotes file and 'd' denotes directory.
 
 ## To-Do's
 * [ ] Check if Path given is directory \(send command\).
-* [ ] Send Contents of whole directory via email.
+* [ ] Send all the contents of directory via email.
 * [x] Add option to remotely stop Program.

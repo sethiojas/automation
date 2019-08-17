@@ -170,23 +170,40 @@ class Mail():
 		''' Send files via email '''
 
 		#function goes through the list of path provided in the mail body
-		#and checks if the path exists. If the path is valid then the file
-		#whose path is provided is added as an attachment to the email
-		#with the same name by which it is stored on the user's computer
+		#and checks if the path exists. If the path is valid then it is checked
+		#if the path given is of a directory or not. If it's a directory, then all
+		#the files of directory are attached to email.
+		#(Note: files od subdirectories(if any) is not attached)
+		#If the path is of a file then it is added as an attachment to the email
 
 		self.email_msg = MIMEMultipart()
 		for path in args:
 			if os.path.exists(path):
-				with open(path, 'rb') as file:
-					part = MIMEApplication(
-						file.read(),
-						Name = os.path.basename(path))
-				# part['Content-Disposition'] = f'attachment; filename="{os.path.basename(path)}" '
-				part.add_header('Content-Disposition', 'attachment', filename=os.path.basename(path))
-				self.email_msg.attach(part)
+				if os.path.isdir(path):
+					with os.scandir(path) as parent:
+						for item in parent:
+							path = item.path
+							self.add_attachment(path)
+				else:
+					self.add_attachment(path)
 		self.sent_mail = 1	
 		status_code = 5
 		self.send_mail(status_code)
+
+	def add_attachment(self, path):
+		''' add attachments to email '''
+		#Adds all files except any subdirectories (and their content).
+		
+		try:
+			with open(path, 'rb') as file:
+				part = MIMEApplication(
+					file.read(),
+					Name = os.path.basename(path))
+			# part['Content-Disposition'] = f'attachment; filename="{os.path.basename(path)}" '
+			part.add_header('Content-Disposition', 'attachment', filename=os.path.basename(path))
+			self.email_msg.attach(part)
+		except IsADirectoryError :
+			pass
 
 
 if __name__ == '__main__':

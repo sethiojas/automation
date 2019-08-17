@@ -23,7 +23,7 @@ download_path = input('Download email attachments(if present) to this directory'
 					'\neg: /path/to/directory  (correct)'
 					'\n    /path/to/directory/ (wrong)'
 					'\n> ')
-master = getpass.getpass('Enter master password> ')
+master = getpass.getpass('Enter master password (You will be asked to enter this at every program run)\n> ')
 master2 = getpass.getpass('Re-Enter master password> ')
 
 attempts = 3

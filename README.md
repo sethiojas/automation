@@ -159,6 +159,6 @@ the file name.
 (just saying)**
 
 ## To-Do's
-* [ ] Check if Path given is directory \(send command\).
-* [ ] Send all the contents of directory via email.
+* [x] Send all the contents of directory via email.
 * [x] Add option to remotely stop Program.
+* [ ] Make this program cross-platform

@@ -3,6 +3,7 @@ from simplecrypt import encrypt
 from os import system
 import getpass
 import sys
+from tqdm import tqdm
 
 #User is prompted for required credentials for the functioning of automate.py
 #A master password is set to lock the data. User has to Re-enter the master password
@@ -47,14 +48,11 @@ data = {
 
 #encrypt the values of corresponding keys
 print('Encrypting data....')
-for key, value in data.items():
-	print(f'Encrypting {key}....')
+for key, value in tqdm(data.items()):
 	data[key] = encrypt(master, value)
-	print('Done')
 print('Encryption Done')
 
 #save the dictionary in shelve file
-print('Saving data')
 sv = shelve.open('data')
 sv['data'] = data
 sv.close()

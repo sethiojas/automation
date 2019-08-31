@@ -7,6 +7,7 @@ import os
 import shelve
 from simplecrypt import decrypt
 import getpass
+from tqdm import tqdm
 
 # Task status 		code (int)
 	
@@ -113,15 +114,12 @@ def decrypt_and_parse_data():
 	sv = shelve.open('data')
 	data = sv['data']
 	sv.close()
-	print('Done')
 	os.system('clear')
 	master = getpass.getpass('Enter master password> ')
 	print('DECRYPTING DATA')
 	try:
-		for key, value in data.items():
-			print(f'Getting {key}...')
+		for key, value in tqdm(data.items()):
 			data[key] = decrypt(master, value).decode()
-			print('Done')
 		return data
 	except Exception as err:
 		print(err)

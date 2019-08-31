@@ -1,3 +1,4 @@
+tqdm==4.35.0
 simple_crypt==4.1.7
 IMAPClient==2.1.0
 simplecrypt==0.1.1

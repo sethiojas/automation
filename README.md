@@ -60,6 +60,7 @@ python automate.py
 * datetime
 * sys
 * random
+* tqdm
 
 ## Valid Email Subjects
 * [browser](#browser)

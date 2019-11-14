@@ -1,10 +1,14 @@
 from time import sleep
 from os import system
-from mail_func import Mail
+from mail_func import mail
 import functions
 
+#Get required data to initialize Mail object
 data = functions.decrypt_and_parse_data()
 try:
+	#if data is found to initialize object with
+	#raise KeyoardInterrupt otherwise initialize
+	#the mail object.
 	if data == None:
 		raise KeyboardInterrupt
 	mail = Mail(
@@ -17,8 +21,13 @@ try:
 		system('clear')
 		print('Logging In....')
 
+		#read email
 		task_msg = mail.read_mail()
 
+		#check if mail is founc or not
+		#if a mail is found check if it is
+		#from the authorized email address
+		#or not
 		if task_msg != False:
 
 			if task_msg == 'fail':

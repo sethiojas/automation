@@ -12,19 +12,27 @@ from tqdm import tqdm
 #Upon successful setting-up of master password the credentials are encrypted and saved
 #in a pickle file named `data`.
 
+
+#Get required data
 system('clear')
 bot_id = input('Bot Email ID> ')
 bot_passwd = getpass.getpass(f'Password for {bot_id}> ')
 
 system('clear')
+
 receiver_id = input('Receive email alerts on this ID> ')
+
 allowed_email = input('Only follow instructions given via this email ID> ')
+
 sender_name = input(f'First Name account owner of {allowed_email}> ')
+
 download_path = input('Download email attachments(if present) to this directory'
 					'\neg: /path/to/directory  (correct)'
 					'\n    /path/to/directory/ (wrong)'
 					'\n> ')
+
 master = getpass.getpass('Enter master password (You will be asked to enter this at every program run)\n> ')
+
 master2 = getpass.getpass('Re-Enter master password> ')
 
 attempts = 3
@@ -32,11 +40,12 @@ while master != master2 and attempts > 0:
 	print(f"Passwords do not match. Attempts left {attempts}")
 	master2 = getpass.getpass('Re-Enter master password> ')
 	attempts -=1
+
 if attempts == 0:
 	sys.exit("PASSWORD FAILURE : EXITING")
 system('clear')
 
-#saves them in dictionary
+#save data in a dictionary
 data = {
 	'bot_id':bot_id,
 	'bot_passwd':bot_passwd,
@@ -48,6 +57,7 @@ data = {
 
 #encrypt the values of corresponding keys
 print('Encrypting data....')
+
 for key, value in tqdm(data.items()):
 	data[key] = encrypt(master, value)
 print('Encryption Done')

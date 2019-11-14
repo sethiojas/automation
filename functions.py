@@ -154,8 +154,10 @@ def get_sleep_time():
 	global sleep_time
 	return sleep_time
 
-#helps to implement the optional command line arguments functionality
-#of open_exe() function
+#If command line arguments are greater than 1 then
+#join them together and pass them to function.
+#Otherwise set the value of command_line_args to
+#None and pass it to function.
 def wrapper_to_open_exe(open_exe):
 	@wraps(open_exe)
 	def inner(args):
@@ -170,7 +172,8 @@ def wrapper_to_open_exe(open_exe):
 
 @wrapper_to_open_exe
 def open_exe(args, command_line_args = None):
-	''' open executables (Optional : command line arguments) '''
+	
+''' open executables (Optional : command line arguments) '''
 	if command_line_args:
 		task = subprocess.Popen([args[0], command_line_args])
 		task.wait()

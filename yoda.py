@@ -1,5 +1,8 @@
 from random import choice
 def say_quote():
+    '''
+    Return a random funny quote
+    '''
     quotes = [
     'Patience you must have, my young padawan.',
     'Less of a shit give I could Not',

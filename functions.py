@@ -149,11 +149,6 @@ def change_sleep_time(num):
 	global sleep_time
 	sleep_time = int(num)
 
-def get_sleep_time():
-	''' return the amount of time to sleep after checking one mail '''
-	global sleep_time
-	return sleep_time
-
 #If command line arguments are greater than 1 then
 #join them together and pass them to function.
 #Otherwise set the value of command_line_args to
@@ -173,13 +168,26 @@ def wrapper_to_open_exe(open_exe):
 @wrapper_to_open_exe
 def open_exe(args, command_line_args = None):
 	
-''' open executables (Optional : command line arguments) '''
+	''' open executables (Optional : command line arguments) '''
 	if command_line_args:
 		task = subprocess.Popen([args[0], command_line_args])
 		task.wait()
 	else:
 		task = subprocess.Popen(args[0])
 		task.wait()
+
+def clrscr_and_pause():
+	''' clear screen and pause the program '''
+
+	sleep(5)
+	os.system('clear')
+	
+	#sleep for specified amount of time (Defaults to 5 minutes)
+	#before checking email again
+	global sleep_time
+	t = sleep_time
+	print(f'Sleeping for {t} seconds')
+	sleep(t)
 
 if __name__ == '__main__':
 	main()

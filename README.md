@@ -1,8 +1,8 @@
 # Automation
 ## Important
 #### pycrypto: Deprecation Warning time.clock()
-** There is a call to time.clock in Crypto/Random/_UserFriendlyRNG.py:77
-time.clock has been deprecated in Python 3.3 and will be removed from Python 3.8
+**There is a call to time.clock in Crypto/Random/_UserFriendlyRNG.py:77
+time.clock has been deprecated in Python 3.3 and will be removed from Python 3.8. 
 [View The Issue](https://bugs.launchpad.net/pycrypto/+bug/1830738)**
 ## Table of Contents
 * [About](#about)

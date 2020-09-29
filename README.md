@@ -161,8 +161,7 @@ the file name.
 ![Stop Example](https://github.com/sethiojas/readme_images/blob/master/automation/stop.png)
 
 ## Easter Egg
-**Find out what happens if the email subject is not one of the Valid email Subjects. The result may be different everytime
-(just saying)**
+**Find out what happens if the email subject is not one of the valid email subjects.**
 
 ## To-Do's
 * [x] Send all the contents of directory via email.
